@@ -3,15 +3,31 @@ body {
     overflow: hidden;
     margin: 0;
 }
+@keyframes animationDino {
+    50% {
+        background-image: url(./dino2.png);
+    }
+    100%{
+        background-image: url(./dino3.png);
+    }
+}
+
 
 .dino {
-    background-image: url(./dino.png);
+    background-image: url(./dino3.png);
     background-size: contain;
     width: 100px;
     height: 100px;
     position: absolute;
     bottom: 0;
     left: 100px;
+    animation-delay:0s;
+    animation-name: animationDino;
+    animation-direction: alternate;
+    animation-duration: 0.2s;
+    animation-iteration-count:infinite;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
 
 }
 

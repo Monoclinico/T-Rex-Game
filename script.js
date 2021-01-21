@@ -20,7 +20,7 @@ function handleKeyUp(event){
 
 function jump(){
     isJumping = true;
-
+    dino.style.animationPlayState = "paused";
     let upInterval = setInterval(()=>{
         if (position >= 180){
             clearInterval(upInterval);
@@ -28,6 +28,8 @@ function jump(){
                 if(position <=0 ){
                     clearInterval(downInterval);
                     isJumping = false;
+                    dino.style.animationPlayState = "running";
+
                 }else{
                     if (!isLose){
                         position -= 9;
@@ -65,6 +67,7 @@ function createCactus(){
                 clearInterval(addScoreInterval);
                 isLose = true;
                 background.style.animationPlayState = "paused";
+                dino.style.animationPlayState = "paused";
                 const endGame = document.createElement("div");
                 background.appendChild(endGame);
                 endGame.innerHTML = "Game Over";
