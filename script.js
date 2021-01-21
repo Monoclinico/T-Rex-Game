@@ -5,6 +5,8 @@ let isJumping = false;
 let isLose = false;
 let position = 0;
 let score = 0;
+let velocityCactus = 8;
+let velocityBackground = 200;
 
 function handleKeyUp(event){
     if(event.keyCode === 32 || event.keyCode === 38){
@@ -32,7 +34,7 @@ function jump(){
 
                 }else{
                     if (!isLose){
-                        position -= 9;
+                        position -= 10;
                         dino.style.bottom = position + "px";
                     }
                 }
@@ -55,13 +57,22 @@ function createCactus(){
    
         cactus.classList.add("cactus");
         cactus.style.left = cactusPosition+ "px";
+        let randomBackground;
+        randomBackground = (Math.random() *1000);
+        if (randomBackground <= 300){
+            cactus.style.backgroundImage = "url(./cactus1.png)";
+        }else if(randomBackground > 300 && randomBackground <= 600){
+            cactus.style.backgroundImage = "url(./rock.png)";
+        }else{
+            cactus.style.backgroundImage = "url(./cactus2.png)";
+        }
         background.appendChild(cactus);
 
         let leftInterval = setInterval(()=>{
             if (cactusPosition < -60){
                 clearInterval(leftInterval);
                 background.removeChild(cactus);
-            }else if (cactusPosition > 110 && cactusPosition < 170 && position <70){
+            }else if (cactusPosition > 110 && cactusPosition < 168 && position <67){
                 clearInterval(leftInterval);
                 clearInterval(createCactusInterval);
                 clearInterval(addScoreInterval);
@@ -78,7 +89,7 @@ function createCactus(){
                 restartGame.style = "color: black;text-align: center;font-family: Arial; font-weight: 900;font-size: 4ch;;width:auto;height: 150px; position:relative; transform: translate(-50%, -50%); top:50%; left: 50%";
 
             }else{
-                cactusPosition -= 10;
+                cactusPosition -= velocityCactus;
                 cactus.style.left = cactusPosition + "px";
                 
             }
@@ -90,6 +101,13 @@ function createCactus(){
 function addScore(){
     scoreText.innerHTML = "Score: "+score;
     score += 1;
+    if (score % 100 == 0){
+        velocityCactus+=1;
+        if (velocityBackground>=30){
+            velocityBackground-=10;
+        }
+        background.style.animationDuration = velocityBackground+"s";
+    }
 }
 
 function callCreateCactus(){
