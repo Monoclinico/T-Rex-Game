@@ -149,3 +149,14 @@ body {
     font-size: 4ch;
     color:#006600;
 }
+
+.author {
+    position: absolute;
+    bottom: 0;
+    right: 50px;
+    text-align: center;
+    font-family: Arial;
+    font-weight: 900;
+    font-size: 2ch;
+    color:white;
+}
