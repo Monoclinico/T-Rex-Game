@@ -5,6 +5,7 @@ let isJumping = false;
 let isLose = false;
 let position = 0;
 let score = 0;
+let scoreLast = 0;
 let velocityCactus = 8;
 let velocityBackground = 200;
 
@@ -88,6 +89,7 @@ function createCactus(){
                 background.appendChild(restartGame);
                 restartGame.innerHTML = "Press space or key up to restart";
                 restartGame.style = "z-index:1000;color: black;text-align: center;font-family: Arial; font-weight: 900;font-size: 4ch;;width:auto;height: 150px; position:relative; transform: translate(-50%, -50%); top:50%; left: 50%";
+                addHighScore();
 
             }else{
                 cactusPosition -= velocityCactus;
@@ -104,7 +106,7 @@ function createCactus(){
 }
 
 function addScore(){
-    scoreText.innerHTML = "Score: "+score;
+    scoreText.innerHTML = "High Score: "+ scoreLast+"<br/>"+"Score: "+score;
     score += 1;
     if (score % 100 == 0){
         velocityCactus+=1;
@@ -115,8 +117,20 @@ function addScore(){
     }
 }
 
+function addHighScore(){
+    if (typeof(Storage) !== "undefined") {
+
+        scoreLast = localStorage.getItem("highScore") == null?0:localStorage.getItem("highScore");
+        if (score > scoreLast ){
+            localStorage.setItem("highScore",score);
+        }
+    }
+
+}
+
 let addScoreInterval = setInterval(addScore,100);
 
 createCactus();
+addHighScore();
 
 document.addEventListener("keydown", handleKeyUp);
